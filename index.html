@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Relationship Vault&lt;/title&gt;</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- PWA &amp; Mobile Web App Meta Tags --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="theme-color" content="#be123c"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="apple-touch-icon" href="https://img.icons8.com/emoji/192/rose-emoji.png"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Tailwind CSS CDN --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Lucide Icons --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tailwind.config = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>darkMode: 'class',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>theme: {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>extend: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>colors: {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>rose: {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>50: '#fff1f2',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>100: '#ffe4e6',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>200: '#fecdd3',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>500: '#f43f5e',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>600: '#e11d48',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>700: '#be123c',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>800: '#9f1239',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>900: '#881337',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* Prevent text highlight on mobile touch */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>* { -webkit-tap-highlight-color: transparent; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* Custom Scrollbar */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>::-webkit-scrollbar { width: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.dark ::-webkit-scrollbar-thumb { background: #334155; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-rose-50/40 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen font-sans antialiased pb-24 transition-colors duration-200"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- TOP HEADER --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;header class="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-rose-100 dark:border-slate-800 px-4 py-3 flex justify-between items-center shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flex items-center space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="p-2 bg-rose-100 dark:bg-rose-950/60 rounded-full text-rose-600 dark:text-rose-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;i data-lucide="heart" class="w-5 h-5 fill-current"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 class="font-bold text-lg leading-tight text-slate-900 dark:text-white"&gt;Our Vault&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-xs text-rose-600 dark:text-rose-400 font-medium"&gt;Since April 8, 2026&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flex items-center space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button id="darkToggleBtn" onclick="toggleDarkMode()" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;i data-lucide="moon" class="w-5 h-5"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="openBackupModal()" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;i data-lucide="shield-check" class="w-5 h-5"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- QUICK MILESTONES BANNER --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section class="px-4 pt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-2xl p-4 shadow-md flex justify-around text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-[10px] uppercase tracking-wider opacity-80"&gt;Asked Out&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-sm font-semibold"&gt;Mar 22&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="border-r border-white/20"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-[10px] uppercase tracking-wider opacity-80"&gt;First Date&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-sm font-semibold"&gt;Mar 28&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="border-r border-white/20"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-[10px] uppercase tracking-wider opacity-80"&gt;Girlfriend&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-sm font-semibold"&gt;Apr 8&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="border-r border-white/20"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-[10px] uppercase tracking-wider opacity-80"&gt;Birthday&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-sm font-semibold"&gt;Sep 20&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- MAIN CONTAINER WITH TABS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="p-4 max-w-2xl mx-auto space-y-6"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- NAVIGATION TABS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;nav class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none text-sm font-medium"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('favorites')" id="tab-favorites" class="tab-btn px-4 py-2 rounded-xl bg-rose-600 text-white shadow-sm whitespace-nowrap"&gt;Favorites &amp; Info&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('qualities')" id="tab-qualities" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap"&gt;Things I Love&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('dates')" id="tab-dates" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap"&gt;Date Ideas&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('boundaries')" id="tab-boundaries" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap"&gt;Principles &amp; Rules&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('questions')" id="tab-questions" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap"&gt;Questions &amp; Prep&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('journal')" id="tab-journal" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap"&gt;Journal &amp; Log&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="switchTab('gifts')" id="tab-gifts" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap"&gt;Gifts &amp; Ideas&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/nav&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- CONTENT SECTIONS --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 1: FAVORITES &amp; INFO --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-favorites" class="tab-content space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-lg font-bold flex items-center gap-2"&gt;&lt;i data-lucide="user-check" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Her Basics &amp; Cheatsheet&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Quick Quick-Facts Cards --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="grid grid-cols-2 gap-3 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs text-rose-500 font-semibold block uppercase"&gt;Eye Color&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="font-medium"&gt;Blue (hint of green)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs text-rose-500 font-semibold block uppercase"&gt;Ring Size &amp; Jewelry&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="font-medium"&gt;Size 6.5–7 / Silver ONLY (4 ct)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs text-rose-500 font-semibold block uppercase"&gt;Favorite Color&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="font-medium"&gt;Purple 💜 (Not Pink!)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs text-rose-500 font-semibold block uppercase"&gt;Family&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="font-medium"&gt;Patti, Toby, Camden, Isaiah, Ryker&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Subway Order Special Card --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-2 mb-1 text-emerald-700 dark:text-emerald-400 font-bold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="utensils" class="w-4 h-4"&gt;&lt;/i&gt; Her Exact Subway Order</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-sm text-slate-700 dark:text-slate-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>6" White Bread • Grilled Chicken Strips • No Cheese • Toasted • Lettuce, Spinach, Tomatoes, Black Olives • &lt;strong&gt;A lot of Ranch&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Favorites List Dynamic --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-semibold text-sm text-slate-700 dark:text-slate-200 border-b pb-2 dark:border-slate-700"&gt;Food, Drinks &amp; Likes&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul id="favorites-list" class="space-y-2 text-sm divide-y divide-slate-100 dark:divide-slate-700/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Loaded via JS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Health / Cycle Reminder Card --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="bg-rose-50 dark:bg-rose-950/40 p-4 rounded-xl border border-rose-200 dark:border-rose-900/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-bold text-rose-800 dark:text-rose-300 text-sm flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="heart-pulse" class="w-4 h-4"&gt;&lt;/i&gt; Cycle &amp; Care Notes</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-xs text-rose-700 dark:text-rose-300/80 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Period starts around ~13th of month (lasts 3-4 days). Lower back hurts day before &amp; during. Super hungry, gets cramps &amp; emotional. Bring snacks/comfort items.</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 2: THINGS I LOVE ABOUT HER --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-qualities" class="tab-content hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-lg font-bold flex items-center gap-2"&gt;&lt;i data-lucide="sparkles" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Qualities I Love About Her&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="addQualityPrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium"&gt;+ Add New&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="qualities-container" class="grid grid-cols-1 gap-2.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- JS rendered --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 3: DATE IDEAS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-dates" class="tab-content hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-lg font-bold flex items-center gap-2"&gt;&lt;i data-lucide="map-pin" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Date Ideas &amp; Spots&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="addDatePrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium"&gt;+ Add Spot&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Category Filter --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex gap-1 overflow-x-auto text-xs pb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="filterDates('all')" class="px-3 py-1 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-200"&gt;All&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="filterDates('chill')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"&gt;Chill&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="filterDates('active')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"&gt;Active&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="filterDates('outdoors')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"&gt;Outdoors/Nature&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="filterDates('cr')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"&gt;When in CR&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="dates-container" class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- JS rendered --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 4: PRINCIPLES &amp; BOUNDARIES --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-boundaries" class="tab-content hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="bg-amber-50 dark:bg-amber-950/40 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-bold text-amber-900 dark:text-amber-300 text-sm flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="shield" class="w-4 h-4"&gt;&lt;/i&gt; High Calling</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-xs text-amber-800 dark:text-amber-300/80 mt-1 italic"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>"How holy can I make this? How can I make this relationship glorify God? She is God's girl, not mine."</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-bold text-sm text-slate-800 dark:text-slate-200"&gt;Personal Mindset &amp; Reminders&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="mindset-list" class="space-y-2 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- JS Rendered --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-3 pt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-bold text-sm text-slate-800 dark:text-slate-200"&gt;Relationship Boundaries&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="boundaries-list" class="space-y-2 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- JS Rendered --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 5: QUESTIONS &amp; PREP --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-questions" class="tab-content hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-lg font-bold flex items-center gap-2"&gt;&lt;i data-lucide="message-circle" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Questions &amp; Marriage Prep&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-semibold text-sm text-slate-700 dark:text-slate-300"&gt;Casual &amp; Sweet Questions&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="casual-q-list" class="space-y-2"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-3 pt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3 class="font-semibold text-sm text-slate-700 dark:text-slate-300"&gt;Deep &amp; Marriage Conversations&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="deep-q-list" class="space-y-2"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 6: JOURNAL &amp; LOG --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-journal" class="tab-content hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-lg font-bold flex items-center gap-2"&gt;&lt;i data-lucide="book-open" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Journal &amp; Moments Log&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="addJournalPrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium"&gt;+ Add Entry&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="journal-container" class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- JS Rendered --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- TAB 7: GIFTS &amp; NOTES --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sec-gifts" class="tab-content hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-lg font-bold flex items-center gap-2"&gt;&lt;i data-lucide="gift" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Gift Ideas&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="addGiftPrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium"&gt;+ Add Gift&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="gifts-container" class="grid grid-cols-1 gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- JS Rendered --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- DATA BACKUP / EXPORT MODAL --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="backupModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bg-white dark:bg-slate-800 rounded-2xl max-w-sm w-full p-5 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3 class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;i data-lucide="database" class="w-5 h-5 text-rose-500"&gt;&lt;/i&gt; Vault Data &amp; Backup</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="text-xs text-slate-500 dark:text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>All your notes are saved locally in your phone browser. You can back them up or restore them anytime.</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="exportData()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-xl text-sm flex items-center justify-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="download" class="w-4 h-4"&gt;&lt;/i&gt; Export Data Backup (.json)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="resetToDefaults()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-medium rounded-xl text-sm flex items-center justify-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="refresh-cw" class="w-4 h-4"&gt;&lt;/i&gt; Reset to Initial Notes</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="closeBackupModal()" class="w-full py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-500 dark:text-slate-400"&gt;Close&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- APPLICATION JAVASCRIPT --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// INITIAL APP DATA (PRE-LOADED WITH ALL YOUR NOTES)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const initialData = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>favorites: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Food", item: "Jersey Mike's" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Food", item: "McDonald's McMuffin sandwich" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Food", item: "Movie theater popcorn / White cheddar popcorn" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Food", item: "Ice cream / Peanut butter / Nutter Butters" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Food", item: "Cool Ranch Doritos" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Candy", item: "Smarties, Welch's fruit snacks, Mambas (sour chewy gummies)" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Drinks", item: "Sonic Dirty Dr Pepper &amp; regular Dr Pepper" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Drinks", item: "Pink Red Bull (Cherry?)" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Drinks", item: "Starbucks Strawberry Lemonade Acai + Biscotti" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Drinks", item: "Pineapple drinks (Hyper), Lime Slush Alani, Iced Bluebell (Sidecar)" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Drinks", item: "Bloom drinks &amp; Apple Crisp Bloom" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ cat: "Dislikes", item: "Cake, Cheese, Mac &amp; Cheese" }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>qualities: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Her passion for the lost",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Amazing at connecting with all kinds of people",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Her beautiful smile &amp; laugh",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Able to balance a lot of things at once",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Genuine love and care for her friends (tells them what they need to hear with grace)",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Hard worker and deeply driven",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Willingness to serve (church, kids, etc.)",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Attention to detail and super organized",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Incredible with kids",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Able to tell when friends aren't doing okay",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Fun energy — everyone loves being around her",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Brings out the absolute best in me &amp; makes me strive to be better",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Soft, empathetic heart — bears people's burdens",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Quick to forgive and joyful"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dates: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "George Wyth State Park ⭐", cat: "outdoors", desc: "Best spot for stargazing" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Cedar Valley Arboretum &amp; Botanical Garden", cat: "outdoors", desc: "Flowers &amp; peaceful walks" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Big Woods Lake", cat: "outdoors", desc: "Great for walks &amp; stargazing" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Prairie Lakes Trail", cat: "outdoors", desc: "Close by with nice gazebo" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Furniture Row Massage Chairs", cat: "chill", desc: "Fun chill date" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "DoorDash &amp; Puzzle / Board Games", cat: "chill", desc: "Cozy night in" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Pickleball &amp; Bowling", cat: "active", desc: "Active &amp; competitive" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Get Air &amp; Ice Skating / Rollerblading", cat: "active", desc: "High energy" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Walk in Cedar Rapids (Palisades, Mount Trashmore, Morgan Creek)", cat: "cr", desc: "When hanging out in CR" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ title: "Plato's Closet &amp; Thrifting", cat: "cr", desc: "Shopping day" }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mindset: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Don't change who I am",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Have planned, intentional time together each week",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Guard my heart &amp; save physical intimacy for marriage",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Keep learning and paying attention to her every day",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"She is God's girl, not mine. Honor her above all",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"She is insecure about her teeth &amp; struggles with comparison — affirm her!",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Remember: She is not perfect or my 'rock' — God is my rock"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>boundaries: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Goal: 'How holy can I make this relationship to glorify God?'",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Done hanging out at 12:30 AM when it's just the two of us",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Set a timer for 12:00 AM during movies to check in with ourselves",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Ask: 'Is this sweet, or is this sexual?'",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Kissing rule: Goal is to express affection/fun, NOT to lead further. Stop immediately if wanting more.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"No grabbing, no taking clothes off, no neck kissing (prevents hickeys &amp; guilt)",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Pray before making out &amp; take breaks",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"She trusts me completely with her purity — lead well!",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Re-evaluate and go over boundaries together EVERY MONTH"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>casualQ: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Is there anything that you haven't asked me that you've been wanting to?",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"What does a 'good life' look like for you?",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"What's a compliment you thought about giving me but never said?"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>deepQ: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Future Plans: How do you see life after college? (Church plant, mission trip, Cedar Falls)?",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Finances &amp; running a home: How do you see raising kids? (Santa, adoption, how many kids)?",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Evaluating us: What have we done well at keeping God at the center, and where can we improve?",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Marriage Timeline: What are you thinking for timing and length of engagement?",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Testimony check-in: Is there anything in your testimony I don't know yet?"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>journal: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ date: "Oct 2, 2026", note: "Long hangout! Lifted together for the 1st time, played pickleball, got groceries, made homemade pizzas, cleaned, watched shows. Normal life stuff!" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ date: "Sep 29, 2026", note: "Keeps giving me sweet compliments. Said how much she loves me and feels honored to date me." },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ date: "Sep 28, 2026", note: "Broke boundary with neck kissing. She was so quick to take responsibility and expressed deep desire &amp; appreciation for me. Re-anchored our rules." },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ date: "Sep 20, 2026", note: "Her Birthday! Church together, opened presents, went out for food. Said: 'I just want to do life with you forever.' Talked weddings &amp; wedding DJ!" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ date: "Sep 18, 2026", note: "Sacrificed time for her friend Ella. Prayed for my interview. Loved just sitting in her room talking for an hour." }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gifts: [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"AirTag for keys/wallet",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"MacBook Case",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Nail LED Light",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Bombas Socks",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Car Charger &amp; Long Cord",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Little handwritten sticky notes",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Mambas / Sour chewy gummies &amp; Liquid IV"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>]</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// LOAD DATA FROM LOCALSTORAGE OR USE INITIAL</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let appData = JSON.parse(localStorage.getItem('gf_vault_data')) || initialData;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function saveData() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem('gf_vault_data', JSON.stringify(appData));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// TAB SWITCHING LOGIC</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function switchTab(tabId) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll('.tab-content').forEach(el =&gt; el.classList.add('hidden'));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll('.tab-btn').forEach(el =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>el.classList.remove('bg-rose-600', 'text-white');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>el.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById(`sec-${tabId}`).classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const activeBtn = document.getElementById(`tab-${tabId}`);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeBtn.classList.add('bg-rose-600', 'text-white');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// RENDER FUNCTIONS</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderAll() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderFavorites();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderQualities();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderDates('all');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderBoundaries();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderQuestions();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderJournal();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderGifts();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lucide.createIcons();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderFavorites() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('favorites-list');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = appData.favorites.map(f =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;li class="pt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300 mr-2"&gt;${f.cat}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-slate-700 dark:text-slate-300"&gt;${f.item}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderQualities() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('qualities-container');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = appData.qualities.map((q, idx) =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm flex items-start gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-rose-500 mt-0.5 shrink-0"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="text-sm text-slate-800 dark:text-slate-200 flex-1"&gt;${q}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderDates(filter) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('dates-container');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const filtered = filter === 'all' ? appData.dates : appData.dates.filter(d =&gt; d.cat === filter);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = filtered.map(d =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700/60 shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="font-semibold text-sm text-slate-800 dark:text-slate-100"&gt;${d.title}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"&gt;${d.desc}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function filterDates(cat) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderDates(cat);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lucide.createIcons();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderBoundaries() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const mindsetBox = document.getElementById('mindset-list');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mindsetBox.innerHTML = appData.mindset.map(m =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-2.5 rounded-lg border border-slate-100 dark:border-slate-700/60 flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;${m}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const boundaryBox = document.getElementById('boundaries-list');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>boundaryBox.innerHTML = appData.boundaries.map(b =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-2.5 rounded-lg border border-rose-100 dark:border-slate-700/60 flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="lock" class="w-4 h-4 text-rose-500 shrink-0"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;${b}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderQuestions() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('casual-q-list').innerHTML = appData.casualQ.map(q =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700/60 text-sm text-slate-700 dark:text-slate-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>"${q}"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('deep-q-list').innerHTML = appData.deepQ.map(q =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-amber-50/50 dark:bg-slate-800 p-3 rounded-xl border border-amber-200/60 dark:border-slate-700 text-sm text-slate-800 dark:text-slate-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>👉 ${q}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderJournal() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('journal-container');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = appData.journal.map(j =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider"&gt;${j.date}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="text-sm text-slate-700 dark:text-slate-300"&gt;${j.note}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderGifts() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('gifts-container');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = appData.gifts.map(g =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;i data-lucide="gift" class="w-4 h-4 text-rose-500 shrink-0"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-sm font-medium text-slate-800 dark:text-slate-200"&gt;${g}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// ADD PROMPTS</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function addQualityPrompt() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const text = prompt("Enter something you love about her:");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (text) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.qualities.unshift(text);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>saveData();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderQualities();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lucide.createIcons();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function addDatePrompt() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const title = prompt("Enter Date Spot/Idea:");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (title) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const desc = prompt("Short description or note:") || "";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.dates.unshift({ title, cat: 'chill', desc });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>saveData();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderDates('all');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lucide.createIcons();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function addJournalPrompt() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const date = prompt("Enter Date (e.g. Oct 10, 2026):", "Oct 8, 2026");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const note = prompt("Journal Note:");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (note) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.journal.unshift({ date, note });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>saveData();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderJournal();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function addGiftPrompt() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const gift = prompt("Gift Idea:");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (gift) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.gifts.unshift(gift);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>saveData();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderGifts();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lucide.createIcons();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// BACKUP &amp; RESET</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function openBackupModal() { document.getElementById('backupModal').classList.remove('hidden'); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function closeBackupModal() { document.getElementById('backupModal').classList.add('hidden'); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function exportData() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const downloadAnchor = document.createElement('a');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>downloadAnchor.setAttribute("href", dataStr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>downloadAnchor.setAttribute("download", `girlfriend_vault_backup.json`);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.body.appendChild(downloadAnchor);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>downloadAnchor.click();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>downloadAnchor.remove();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function resetToDefaults() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (confirm("Reset back to initial notes data?")) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData = initialData;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>saveData();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>closeBackupModal();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// DARK MODE TOGGLE</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function toggleDarkMode() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.documentElement.classList.toggle('dark');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// INIT ON LOAD</p>
+<p class="p1"><span class="Apple-converted-space">    </span>window.onload = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
