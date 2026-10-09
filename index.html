@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Vault</title>
   
-  <!-- PWA & Mobile Web App Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Vault">
@@ -30,9 +29,14 @@
       opacity: 0.4;
       background-color: #27272a !important;
     }
+    
+    /* Font Size Utility Controls */
+    .text-scale-sm { font-size: 0.85rem; }
+    .text-scale-md { font-size: 1rem; }
+    .text-scale-lg { font-size: 1.15rem; }
   </style>
 </head>
-<body class="bg-black text-white min-h-screen font-sans antialiased pb-28 selection:bg-white selection:text-black">
+<body id="app-body" class="bg-black text-white min-h-screen font-sans antialiased pb-28 selection:bg-white selection:text-black text-scale-md">
 
   <!-- TOP HEADER -->
   <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-zinc-800 px-4 py-4 flex justify-between items-center">
@@ -41,42 +45,42 @@
         <i data-lucide="heart" class="w-5 h-5 text-white stroke-[2]"></i>
       </div>
       <div>
-        <h1 class="font-black text-base tracking-widest uppercase text-white">The Vault</h1>
-        <p class="text-[10px] text-zinc-500 font-bold tracking-wider uppercase">Est. April 8, 2026</p>
+        <h1 id="app-title-display" class="font-black text-base tracking-widest uppercase text-white cursor-pointer" onclick="editAppTitle()">The Vault</h1>
+        <p id="app-subtitle-display" class="text-[10px] text-zinc-500 font-bold tracking-wider uppercase cursor-pointer" onclick="editAppSubtitle()">Est. April 8, 2026</p>
       </div>
     </div>
     
     <button onclick="openBackupModal()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white">
-      <i data-lucide="database" class="w-4 h-4"></i>
+      <i data-lucide="settings" class="w-4 h-4"></i>
     </button>
   </header>
 
-  <!-- MILESTONES BANNER -->
-  <section class="px-4 pt-4">
+  <!-- MILESTONES BANNER (CAN BE HIDDEN IN SETTINGS) -->
+  <section id="milestones-section" class="px-4 pt-4">
     <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-3.5 flex justify-around text-center">
-      <div>
-        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Asked Out</p>
-        <p class="text-xs font-extrabold text-white mt-0.5">Mar 22</p>
+      <div onclick="editMilestone(0)" class="cursor-pointer">
+        <p id="m0-label" class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Asked Out</p>
+        <p id="m0-val" class="text-xs font-extrabold text-white mt-0.5">Mar 22</p>
       </div>
       <div class="border-r border-zinc-800"></div>
-      <div>
-        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">First Date</p>
-        <p class="text-xs font-extrabold text-white mt-0.5">Mar 28</p>
+      <div onclick="editMilestone(1)" class="cursor-pointer">
+        <p id="m1-label" class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">First Date</p>
+        <p id="m1-val" class="text-xs font-extrabold text-white mt-0.5">Mar 28</p>
       </div>
       <div class="border-r border-zinc-800"></div>
-      <div>
-        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Girlfriend</p>
-        <p class="text-xs font-extrabold text-white mt-0.5">Apr 8</p>
+      <div onclick="editMilestone(2)" class="cursor-pointer">
+        <p id="m2-label" class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Girlfriend</p>
+        <p id="m2-val" class="text-xs font-extrabold text-white mt-0.5">Apr 8</p>
       </div>
       <div class="border-r border-zinc-800"></div>
-      <div>
-        <p class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Birthday</p>
-        <p class="text-xs font-extrabold text-white mt-0.5">Sep 20</p>
+      <div onclick="editMilestone(3)" class="cursor-pointer">
+        <p id="m3-label" class="text-[9px] uppercase tracking-widest text-zinc-500 font-bold">Birthday</p>
+        <p id="m3-val" class="text-xs font-extrabold text-white mt-0.5">Sep 20</p>
       </div>
     </div>
   </section>
 
-  <!-- MAIN NAVIGATION TABS -->
+  <!-- NAVIGATION TABS -->
   <main class="p-4 max-w-2xl mx-auto space-y-5">
 
     <nav class="flex space-x-2 overflow-x-auto pb-1 text-[11px] font-bold tracking-wider uppercase">
@@ -89,8 +93,6 @@
       <button onclick="switchTab('gifts')" id="tab-gifts" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 whitespace-nowrap">Gifts</button>
     </nav>
 
-    <!-- SECTIONS -->
-
     <!-- TAB 1: FAVORITES & BASICS -->
     <div id="sec-favorites" class="tab-content space-y-4">
       <div class="flex justify-between items-center">
@@ -101,52 +103,39 @@
       </div>
 
       <!-- Quick Fact Tiles -->
-      <div class="grid grid-cols-2 gap-2 text-xs">
-        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-          <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider block">Eye Color</span>
-          <span class="font-bold text-zinc-100 mt-0.5 block">Blue (hint of green)</span>
-        </div>
-        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-          <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider block">Ring Size & Jewelry</span>
-          <span class="font-bold text-zinc-100 mt-0.5 block">Size 6.5–7 / Silver ONLY</span>
-        </div>
-        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-          <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider block">Favorite Color</span>
-          <span class="font-bold text-zinc-100 mt-0.5 block">Purple 💜 (Not Pink)</span>
-        </div>
-        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-          <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider block">Family</span>
-          <span class="font-bold text-zinc-100 mt-0.5 block">Patti, Toby, Camden, Isaiah, Ryker</span>
-        </div>
+      <div class="grid grid-cols-2 gap-2 text-xs" id="quick-facts-grid">
+        <!-- Rendered via JS for editability -->
       </div>
 
       <!-- Subway Order Tile -->
-      <div class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-800">
-        <div class="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider mb-1">
-          <i data-lucide="utensils" class="w-3.5 h-3.5"></i> Subway Order
+      <div id="subway-card" class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 flex justify-between items-start gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="utensils" class="w-3.5 h-3.5"></i> <span id="subway-title">Subway Order</span>
+          </div>
+          <p id="subway-desc" class="text-xs text-zinc-300 leading-relaxed">6" White Bread • Grilled Chicken Strips • No Cheese • Toasted • Lettuce, Spinach, Tomatoes, Black Olives • A lot of Ranch</p>
         </div>
-        <p class="text-xs text-zinc-300 leading-relaxed">
-          6" White Bread • Grilled Chicken Strips • No Cheese • Toasted • Lettuce, Spinach, Tomatoes, Black Olives • <strong class="text-white">A lot of Ranch</strong>
-        </p>
+        <button onclick="editSubwayCard()" class="text-zinc-500 hover:text-white p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
       </div>
 
       <!-- Reorderable List -->
       <div class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 space-y-2">
         <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
           <h3 class="font-bold text-xs uppercase tracking-wider text-zinc-400">Food, Drinks & Likes</h3>
-          <span class="text-[9px] text-zinc-500 uppercase tracking-widest">Hold & drag handle to reorder</span>
+          <span class="text-[9px] text-zinc-500 uppercase tracking-widest">Hold & drag handle</span>
         </div>
         <div id="favorites-list" class="space-y-2 text-xs"></div>
       </div>
 
       <!-- Period Care Tile -->
-      <div class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-800/80">
-        <h3 class="font-bold text-zinc-200 text-xs uppercase tracking-wider flex items-center gap-2">
-          <i data-lucide="activity" class="w-3.5 h-3.5 text-white"></i> Cycle & Care
-        </h3>
-        <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
-          Period starts around ~13th of month (lasts 3-4 days). Lower back hurts day before & during. Super hungry, gets cramps & emotional. Bring snacks/comfort items.
-        </p>
+      <div id="care-card" class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-800/80 flex justify-between items-start gap-2">
+        <div class="flex-1">
+          <h3 id="care-title" class="font-bold text-zinc-200 text-xs uppercase tracking-wider flex items-center gap-2">
+            <i data-lucide="activity" class="w-3.5 h-3.5 text-white"></i> Cycle & Care
+          </h3>
+          <p id="care-desc" class="text-xs text-zinc-400 mt-1 leading-relaxed">Period starts around ~13th of month (lasts 3-4 days). Lower back hurts day before & during. Super hungry, gets cramps & emotional.</p>
+        </div>
+        <button onclick="editCareCard()" class="text-zinc-500 hover:text-white p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
       </div>
     </div>
 
@@ -181,15 +170,16 @@
       <div id="dates-container" class="space-y-2"></div>
     </div>
 
-    <!-- TAB 4: PRINCIPLES & BOUNDARIES -->
+    <!-- TAB 4: PRINCIPLES -->
     <div id="sec-boundaries" class="tab-content hidden space-y-4">
-      <div class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-800">
-        <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
-          <i data-lucide="shield" class="w-3.5 h-3.5 text-white"></i> High Calling
-        </h3>
-        <p class="text-xs text-zinc-400 mt-1 italic leading-relaxed">
-          "How holy can I make this? How can I make this relationship glorify God? She is God's girl, not mine."
-        </p>
+      <div class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 flex justify-between items-start">
+        <div>
+          <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-white"></i> <span id="calling-title">High Calling</span>
+          </h3>
+          <p id="calling-desc" class="text-xs text-zinc-400 mt-1 italic leading-relaxed">"How holy can I make this? How can I make this relationship glorify God? She is God's girl, not mine."</p>
+        </div>
+        <button onclick="editCallingCard()" class="text-zinc-500 hover:text-white p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
       </div>
 
       <div class="space-y-2">
@@ -253,15 +243,30 @@
 
   </main>
 
-  <!-- BACKUP MODAL -->
+  <!-- SETTINGS MODAL -->
   <div id="backupModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
       <h3 class="font-bold text-sm text-white flex items-center gap-2">
-        <i data-lucide="database" class="w-4 h-4 text-white"></i> Backup Data
+        <i data-lucide="settings" class="w-4 h-4 text-white"></i> Layout & App Settings
       </h3>
-      <p class="text-xs text-zinc-400 leading-relaxed">
-        All items and custom ordering save automatically on your phone. Export a backup anytime to keep your data safe.
-      </p>
+      
+      <!-- Layout Controls -->
+      <div class="space-y-3 border-y border-zinc-800 py-3">
+        <div class="flex justify-between items-center text-xs text-zinc-300">
+          <span>Show Dates Banner at Top</span>
+          <input type="checkbox" id="toggle-milestones" onchange="toggleMilestonesBanner(this.checked)" class="w-4 h-4 accent-white cursor-pointer">
+        </div>
+        
+        <div class="flex justify-between items-center text-xs text-zinc-300">
+          <span>Text Size</span>
+          <select id="text-size-select" onchange="changeTextSize(this.value)" class="bg-zinc-800 text-white text-xs px-2 py-1 rounded border border-zinc-700">
+            <option value="text-scale-sm">Small</option>
+            <option value="text-scale-md" selected>Medium</option>
+            <option value="text-scale-lg">Large</option>
+          </select>
+        </div>
+      </div>
+
       <div class="space-y-2">
         <button onclick="exportData()" class="w-full py-2.5 bg-white text-black font-bold rounded-xl text-xs flex items-center justify-center gap-2">
           <i data-lucide="download" class="w-4 h-4"></i> Export Backup (.json)
@@ -276,6 +281,27 @@
 
   <script>
     const initialData = {
+      config: {
+        showMilestones: true,
+        textSize: 'text-scale-md',
+        appTitle: "The Vault",
+        appSubtitle: "Est. April 8, 2026",
+        milestones: [
+          { label: "Asked Out", val: "Mar 22" },
+          { label: "First Date", val: "Mar 28" },
+          { label: "Girlfriend", val: "Apr 8" },
+          { label: "Birthday", val: "Sep 20" }
+        ],
+        subway: { title: "Subway Order", desc: "6\" White Bread • Grilled Chicken Strips • No Cheese • Toasted • Lettuce, Spinach, Tomatoes, Black Olives • A lot of Ranch" },
+        care: { title: "Cycle & Care", desc: "Period starts around ~13th of month (lasts 3-4 days). Lower back hurts day before & during. Super hungry, gets cramps & emotional." },
+        calling: { title: "High Calling", desc: "\"How holy can I make this? How can I make this relationship glorify God? She is God's girl, not mine.\"" }
+      },
+      quickFacts: [
+        { label: "Eye Color", val: "Blue (hint of green)" },
+        { label: "Ring Size & Jewelry", val: "Size 6.5–7 / Silver ONLY" },
+        { label: "Favorite Color", val: "Purple 💜 (Not Pink)" },
+        { label: "Family", val: "Patti, Toby, Camden, Isaiah, Ryker" }
+      ],
       favorites: [
         { cat: "Food", item: "Jersey Mike's" },
         { cat: "Food", item: "McDonald's McMuffin sandwich" },
@@ -368,26 +394,32 @@
       ]
     };
 
-    let appData = JSON.parse(localStorage.getItem('gf_vault_v3_data')) || initialData;
+    let appData = JSON.parse(localStorage.getItem('gf_vault_v4_data')) || initialData;
 
     function saveData() {
-      localStorage.setItem('gf_vault_v3_data', JSON.stringify(appData));
-    }
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tab-btn').forEach(el => {
-        el.classList.remove('bg-white', 'text-black');
-        el.classList.add('bg-zinc-900', 'text-zinc-400');
-      });
-
-      document.getElementById(`sec-${tabId}`).classList.remove('hidden');
-      const activeBtn = document.getElementById(`tab-${tabId}`);
-      activeBtn.classList.add('bg-white', 'text-black');
-      activeBtn.classList.remove('bg-zinc-900', 'text-zinc-400');
+      localStorage.setItem('gf_vault_v4_data', JSON.stringify(appData));
     }
 
     function renderAll() {
+      // Config setup
+      document.getElementById('app-title-display').innerText = appData.config.appTitle;
+      document.getElementById('app-subtitle-display').innerText = appData.config.appSubtitle;
+      document.getElementById('milestones-section').style.display = appData.config.showMilestones ? 'block' : 'none';
+      document.getElementById('toggle-milestones').checked = appData.config.showMilestones;
+      
+      appData.config.milestones.forEach((m, i) => {
+        document.getElementById(`m${i}-label`).innerText = m.label;
+        document.getElementById(`m${i}-val`).innerText = m.val;
+      });
+
+      document.getElementById('subway-title').innerText = appData.config.subway.title;
+      document.getElementById('subway-desc').innerText = appData.config.subway.desc;
+      document.getElementById('care-title').innerText = appData.config.care.title;
+      document.getElementById('care-desc').innerText = appData.config.care.desc;
+      document.getElementById('calling-title').innerText = appData.config.calling.title;
+      document.getElementById('calling-desc').innerText = appData.config.calling.desc;
+
+      renderQuickFacts();
       renderFavorites();
       renderQualities();
       renderDates('all');
@@ -399,6 +431,18 @@
       lucide.createIcons();
     }
 
+    function renderQuickFacts() {
+      document.getElementById('quick-facts-grid').innerHTML = appData.quickFacts.map((q, i) => `
+        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-start">
+          <div>
+            <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider block">${q.label}</span>
+            <span class="font-bold text-zinc-100 mt-0.5 block">${q.val}</span>
+          </div>
+          <button onclick="editQuickFact(${i})" class="text-zinc-600 hover:text-white p-0.5"><i data-lucide="pencil" class="w-3 h-3"></i></button>
+        </div>
+      `).join('');
+    }
+
     function renderFavorites() {
       document.getElementById('favorites-list').innerHTML = appData.favorites.map((f, i) => `
         <div class="drag-item p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-between gap-2" data-key="favorites" data-index="${i}">
@@ -408,8 +452,8 @@
             <span class="text-zinc-200 truncate">${f.item}</span>
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <button onclick="editFavorite(${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
-            <button onclick="deleteItem('favorites', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            <button onclick="editFavorite(${i})" class="text-zinc-500 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('favorites', ${i})" class="text-zinc-500 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
           </div>
         </div>
       `).join('');
@@ -448,12 +492,6 @@
           </div>
         </div>
       `).join('');
-    }
-
-    function filterDates(cat) {
-      renderDates(cat);
-      attachTouchDragListeners();
-      lucide.createIcons();
     }
 
     function renderBoundaries() {
@@ -546,10 +584,69 @@
       `).join('');
     }
 
-    // TOUCH DRAG & DROP ENGINE FOR IPHONE
-    let activeDragItem = null;
-    let initialY = 0;
+    // CUSTOM STATIC EDITORS
+    function editAppTitle() {
+      const val = prompt("Edit App Title:", appData.config.appTitle);
+      if (val) { appData.config.appTitle = val; saveData(); renderAll(); }
+    }
 
+    function editAppSubtitle() {
+      const val = prompt("Edit Subtitle:", appData.config.appSubtitle);
+      if (val) { appData.config.appSubtitle = val; saveData(); renderAll(); }
+    }
+
+    function editMilestone(idx) {
+      const label = prompt("Edit Milestone Label:", appData.config.milestones[idx].label);
+      const val = prompt("Edit Milestone Value:", appData.config.milestones[idx].val);
+      if (label && val) {
+        appData.config.milestones[idx] = { label, val };
+        saveData();
+        renderAll();
+      }
+    }
+
+    function editQuickFact(idx) {
+      const label = prompt("Edit Label:", appData.quickFacts[idx].label);
+      const val = prompt("Edit Value:", appData.quickFacts[idx].val);
+      if (label && val) {
+        appData.quickFacts[idx] = { label, val };
+        saveData();
+        renderAll();
+      }
+    }
+
+    function editSubwayCard() {
+      const title = prompt("Edit Title:", appData.config.subway.title);
+      const desc = prompt("Edit Order Text:", appData.config.subway.desc);
+      if (title && desc) { appData.config.subway = { title, desc }; saveData(); renderAll(); }
+    }
+
+    function editCareCard() {
+      const title = prompt("Edit Title:", appData.config.care.title);
+      const desc = prompt("Edit Care Text:", appData.config.care.desc);
+      if (title && desc) { appData.config.care = { title, desc }; saveData(); renderAll(); }
+    }
+
+    function editCallingCard() {
+      const title = prompt("Edit Title:", appData.config.calling.title);
+      const desc = prompt("Edit Calling Text:", appData.config.calling.desc);
+      if (title && desc) { appData.config.calling = { title, desc }; saveData(); renderAll(); }
+    }
+
+    function toggleMilestonesBanner(show) {
+      appData.config.showMilestones = show;
+      saveData();
+      renderAll();
+    }
+
+    function changeTextSize(scale) {
+      appData.config.textSize = scale;
+      document.getElementById('app-body').className = `bg-black text-white min-h-screen font-sans antialiased pb-28 selection:bg-white selection:text-black ${scale}`;
+      saveData();
+    }
+
+    // TOUCH DRAG ENGINE
+    let activeDragItem = null;
     function attachTouchDragListeners() {
       document.querySelectorAll('.drag-handle').forEach(handle => {
         handle.addEventListener('touchstart', handleTouchStart, { passive: false });
@@ -561,7 +658,6 @@
     function handleTouchStart(e) {
       activeDragItem = e.target.closest('.drag-item');
       if (!activeDragItem) return;
-      initialY = e.touches[0].clientY;
       activeDragItem.classList.add('dragging');
     }
 
@@ -584,7 +680,7 @@
       }
     }
 
-    function handleTouchEnd(e) {
+    function handleTouchEnd() {
       if (!activeDragItem) return;
       activeDragItem.classList.remove('dragging');
       
@@ -603,7 +699,7 @@
       renderAll();
     }
 
-    // ADD & EDIT ACTIONS
+    // STANDARD ADD/EDIT ACTIONS
     function deleteItem(key, index) {
       if (confirm("Delete this item?")) {
         appData[key].splice(index, 1);
@@ -615,11 +711,7 @@
     function editSimpleList(key, index) {
       const current = appData[key][index];
       const updated = prompt("Edit item:", current);
-      if (updated && updated.trim()) {
-        appData[key][index] = updated.trim();
-        saveData();
-        renderAll();
-      }
+      if (updated && updated.trim()) { appData[key][index] = updated.trim(); saveData(); renderAll(); }
     }
 
     function addQualityPrompt() {
@@ -686,7 +778,25 @@
       if (g) { appData.gifts.unshift(g); saveData(); renderAll(); }
     }
 
-    // MODAL & BACKUP
+    function filterDates(cat) {
+      renderDates(cat);
+      attachTouchDragListeners();
+      lucide.createIcons();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('bg-white', 'text-black');
+        el.classList.add('bg-zinc-900', 'text-zinc-400');
+      });
+
+      document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      activeBtn.classList.add('bg-white', 'text-black');
+      activeBtn.classList.remove('bg-zinc-900', 'text-zinc-400');
+    }
+
     function openBackupModal() { document.getElementById('backupModal').classList.remove('hidden'); }
     function closeBackupModal() { document.getElementById('backupModal').classList.add('hidden'); }
 
@@ -701,7 +811,7 @@
     }
 
     function resetToDefaults() {
-      if (confirm("Reset back to default notes?")) {
+      if (confirm("Reset back to initial default notes?")) {
         appData = initialData;
         saveData();
         renderAll();
@@ -709,18 +819,13 @@
       }
     }
 
-    // GENERATE APP ICON FOR IPHONE
     function generateAppIcon() {
       const canvas = document.createElement('canvas');
       canvas.width = 180;
       canvas.height = 180;
       const ctx = canvas.getContext('2d');
-      
-      // Black background
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, 180, 180);
-      
-      // White outlined heart
       ctx.strokeStyle = '#FFFFFF';
       ctx.lineWidth = 10;
       ctx.beginPath();
