@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Relationship Vault</title>
+  <title>Vault</title>
   
   <!-- PWA & Mobile Web App Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#be123c">
-  <link rel="apple-touch-icon" href="https://img.icons8.com/emoji/192/rose-emoji.png">
+  <meta name="theme-color" content="#000000">
+  
+  <!-- SVG White Heart on Black Icon -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><path d='M50 82s-30-18-30-40a18 18 0 0 1 30-13 18 18 0 0 1 30 13c0 22-30 40-30 40z' fill='none' stroke='white' stroke-width='6' stroke-linejoin='round'/></svg>">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- SortableJS for Touch Drag & Drop -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -22,15 +26,11 @@
       theme: {
         extend: {
           colors: {
-            rose: {
-              50: '#fff1f2',
-              100: '#ffe4e6',
-              200: '#fecdd3',
-              500: '#f43f5e',
-              600: '#e11d48',
-              700: '#be123c',
-              800: '#9f1239',
-              900: '#881337',
+            brand: {
+              black: '#000000',
+              card: '#121212',
+              cardBorder: '#262626',
+              muted: '#a3a3a3'
             }
           }
         }
@@ -39,59 +39,54 @@
   </script>
 
   <style>
-    /* Prevent text highlight on mobile touch */
     * { -webkit-tap-highlight-color: transparent; }
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    ::-webkit-scrollbar { display: none; }
+    .sortable-ghost { opacity: 0.3; background: #262626 !important; }
+    .sortable-drag { opacity: 0.9; }
   </style>
 </head>
-<body class="bg-rose-50/40 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen font-sans antialiased pb-24 transition-colors duration-200">
+<body class="bg-black text-white min-h-screen font-sans antialiased pb-24 transition-colors duration-200 selection:bg-white selection:text-black">
 
   <!-- TOP HEADER -->
-  <header class="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-rose-100 dark:border-slate-800 px-4 py-3 flex justify-between items-center shadow-sm">
-    <div class="flex items-center space-x-2">
-      <div class="p-2 bg-rose-100 dark:bg-rose-950/60 rounded-full text-rose-600 dark:text-rose-400">
-        <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+  <header class="sticky top-0 z-30 bg-black/90 backdrop-blur-md border-b border-zinc-800 px-4 py-3.5 flex justify-between items-center shadow-lg">
+    <div class="flex items-center space-x-3">
+      <div class="p-2 bg-zinc-900 border border-zinc-700 rounded-xl">
+        <i data-lucide="heart" class="w-5 h-5 text-white stroke-[2]"></i>
       </div>
       <div>
-        <h1 class="font-bold text-lg leading-tight text-slate-900 dark:text-white">Our Vault</h1>
-        <p class="text-xs text-rose-600 dark:text-rose-400 font-medium">Since April 8, 2026</p>
+        <h1 class="font-bold text-lg tracking-wide leading-none text-white">THE VAULT</h1>
+        <p class="text-[11px] text-zinc-400 font-medium tracking-wider uppercase mt-1">Since April 8, 2026</p>
       </div>
     </div>
     
     <div class="flex items-center space-x-2">
-      <button id="darkToggleBtn" onclick="toggleDarkMode()" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
-        <i data-lucide="moon" class="w-5 h-5"></i>
-      </button>
-      <button onclick="openBackupModal()" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
-        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      <button onclick="openBackupModal()" class="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition">
+        <i data-lucide="database" class="w-4 h-4"></i>
       </button>
     </div>
   </header>
 
   <!-- QUICK MILESTONES BANNER -->
   <section class="px-4 pt-4">
-    <div class="bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-2xl p-4 shadow-md flex justify-around text-center">
+    <div class="bg-zinc-900 border border-zinc-800 text-white rounded-2xl p-4 shadow-xl flex justify-around text-center">
       <div>
-        <p class="text-[10px] uppercase tracking-wider opacity-80">Asked Out</p>
-        <p class="text-sm font-semibold">Mar 22</p>
+        <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">Asked Out</p>
+        <p class="text-sm font-bold text-zinc-200 mt-0.5">Mar 22</p>
       </div>
-      <div class="border-r border-white/20"></div>
+      <div class="border-r border-zinc-800"></div>
       <div>
-        <p class="text-[10px] uppercase tracking-wider opacity-80">First Date</p>
-        <p class="text-sm font-semibold">Mar 28</p>
+        <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">First Date</p>
+        <p class="text-sm font-bold text-zinc-200 mt-0.5">Mar 28</p>
       </div>
-      <div class="border-r border-white/20"></div>
+      <div class="border-r border-zinc-800"></div>
       <div>
-        <p class="text-[10px] uppercase tracking-wider opacity-80">Girlfriend</p>
-        <p class="text-sm font-semibold">Apr 8</p>
+        <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">Girlfriend</p>
+        <p class="text-sm font-bold text-zinc-200 mt-0.5">Apr 8</p>
       </div>
-      <div class="border-r border-white/20"></div>
+      <div class="border-r border-zinc-800"></div>
       <div>
-        <p class="text-[10px] uppercase tracking-wider opacity-80">Birthday</p>
-        <p class="text-sm font-semibold">Sep 20</p>
+        <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold">Birthday</p>
+        <p class="text-sm font-bold text-zinc-200 mt-0.5">Sep 20</p>
       </div>
     </div>
   </section>
@@ -100,198 +95,214 @@
   <main class="p-4 max-w-2xl mx-auto space-y-6">
 
     <!-- NAVIGATION TABS -->
-    <nav class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none text-sm font-medium">
-      <button onclick="switchTab('favorites')" id="tab-favorites" class="tab-btn px-4 py-2 rounded-xl bg-rose-600 text-white shadow-sm whitespace-nowrap">Favorites & Info</button>
-      <button onclick="switchTab('qualities')" id="tab-qualities" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">Things I Love</button>
-      <button onclick="switchTab('dates')" id="tab-dates" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">Date Ideas</button>
-      <button onclick="switchTab('boundaries')" id="tab-boundaries" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">Principles & Rules</button>
-      <button onclick="switchTab('questions')" id="tab-questions" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">Questions & Prep</button>
-      <button onclick="switchTab('journal')" id="tab-journal" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">Journal & Log</button>
-      <button onclick="switchTab('gifts')" id="tab-gifts" class="tab-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 whitespace-nowrap">Gifts & Ideas</button>
+    <nav class="flex space-x-2 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold tracking-wider uppercase">
+      <button onclick="switchTab('favorites')" id="tab-favorites" class="tab-btn px-4 py-2.5 rounded-xl bg-white text-black transition-all duration-200 whitespace-nowrap shadow-sm">Favorites</button>
+      <button onclick="switchTab('qualities')" id="tab-qualities" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 transition-all duration-200 whitespace-nowrap">Things I Love</button>
+      <button onclick="switchTab('dates')" id="tab-dates" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 transition-all duration-200 whitespace-nowrap">Dates</button>
+      <button onclick="switchTab('boundaries')" id="tab-boundaries" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 transition-all duration-200 whitespace-nowrap">Principles</button>
+      <button onclick="switchTab('questions')" id="tab-questions" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 transition-all duration-200 whitespace-nowrap">Questions</button>
+      <button onclick="switchTab('journal')" id="tab-journal" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 transition-all duration-200 whitespace-nowrap">Journal</button>
+      <button onclick="switchTab('gifts')" id="tab-gifts" class="tab-btn px-4 py-2.5 rounded-xl bg-zinc-900 text-zinc-400 border border-zinc-800 transition-all duration-200 whitespace-nowrap">Gifts</button>
     </nav>
 
-    <!-- CONTENT SECTIONS -->
+    <!-- TAB CONTENTS -->
 
     <!-- TAB 1: FAVORITES & INFO -->
     <div id="sec-favorites" class="tab-content space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-rose-500"></i> Her Basics & Cheatsheet</h2>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+          <i data-lucide="user-check" class="w-4 h-4 text-white"></i> Her Basics & Cheatsheet
+        </h2>
+        <button onclick="addFavoritePrompt()" class="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-zinc-200 transition">+ Add Item</button>
       </div>
 
-      <!-- Quick Quick-Facts Cards -->
-      <div class="grid grid-cols-2 gap-3 text-sm">
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm">
-          <span class="text-xs text-rose-500 font-semibold block uppercase">Eye Color</span>
-          <span class="font-medium">Blue (hint of green)</span>
+      <!-- Quick Facts Cards -->
+      <div class="grid grid-cols-2 gap-2.5 text-xs">
+        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Eye Color</span>
+          <span class="font-semibold text-zinc-200 mt-0.5 block">Blue (hint of green)</span>
         </div>
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm">
-          <span class="text-xs text-rose-500 font-semibold block uppercase">Ring Size & Jewelry</span>
-          <span class="font-medium">Size 6.5–7 / Silver ONLY (4 ct)</span>
+        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Ring Size & Jewelry</span>
+          <span class="font-semibold text-zinc-200 mt-0.5 block">Size 6.5–7 / Silver ONLY (4 ct)</span>
         </div>
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm">
-          <span class="text-xs text-rose-500 font-semibold block uppercase">Favorite Color</span>
-          <span class="font-medium">Purple 💜 (Not Pink!)</span>
+        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Favorite Color</span>
+          <span class="font-semibold text-zinc-200 mt-0.5 block">Purple 💜 (Not Pink!)</span>
         </div>
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm">
-          <span class="text-xs text-rose-500 font-semibold block uppercase">Family</span>
-          <span class="font-medium">Patti, Toby, Camden, Isaiah, Ryker</span>
+        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Family</span>
+          <span class="font-semibold text-zinc-200 mt-0.5 block">Patti, Toby, Camden, Isaiah, Ryker</span>
         </div>
       </div>
 
       <!-- Subway Order Special Card -->
-      <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800/50">
-        <div class="flex items-center gap-2 mb-1 text-emerald-700 dark:text-emerald-400 font-bold">
-          <i data-lucide="utensils" class="w-4 h-4"></i> Her Exact Subway Order
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+        <div class="flex items-center justify-between mb-1">
+          <div class="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
+            <i data-lucide="utensils" class="w-4 h-4"></i> Her Exact Subway Order
+          </div>
         </div>
-        <p class="text-sm text-slate-700 dark:text-slate-300">
-          6" White Bread • Grilled Chicken Strips • No Cheese • Toasted • Lettuce, Spinach, Tomatoes, Black Olives • <strong>A lot of Ranch</strong>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          6" White Bread • Grilled Chicken Strips • No Cheese • Toasted • Lettuce, Spinach, Tomatoes, Black Olives • <strong class="text-white">A lot of Ranch</strong>
         </p>
       </div>
 
-      <!-- Favorites List Dynamic -->
-      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm space-y-3">
-        <h3 class="font-semibold text-sm text-slate-700 dark:text-slate-200 border-b pb-2 dark:border-slate-700">Food, Drinks & Likes</h3>
-        <ul id="favorites-list" class="space-y-2 text-sm divide-y divide-slate-100 dark:divide-slate-700/50">
-          <!-- Loaded via JS -->
+      <!-- Favorites Dynamic List -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
+        <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+          <h3 class="font-bold text-xs uppercase tracking-wider text-zinc-400">Food, Drinks & Likes</h3>
+          <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Drag handle to reorder</span>
+        </div>
+        <ul id="favorites-list" class="space-y-2 text-xs">
+          <!-- JS Rendered -->
         </ul>
       </div>
 
-      <!-- Health / Cycle Reminder Card -->
-      <div class="bg-rose-50 dark:bg-rose-950/40 p-4 rounded-xl border border-rose-200 dark:border-rose-900/50">
-        <h3 class="font-bold text-rose-800 dark:text-rose-300 text-sm flex items-center gap-2">
-          <i data-lucide="heart-pulse" class="w-4 h-4"></i> Cycle & Care Notes
+      <!-- Health Care Note -->
+      <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-800/80">
+        <h3 class="font-bold text-zinc-200 text-xs uppercase tracking-wider flex items-center gap-2">
+          <i data-lucide="activity" class="w-4 h-4 text-white"></i> Cycle & Care Notes
         </h3>
-        <p class="text-xs text-rose-700 dark:text-rose-300/80 mt-1">
+        <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
           Period starts around ~13th of month (lasts 3-4 days). Lower back hurts day before & during. Super hungry, gets cramps & emotional. Bring snacks/comfort items.
         </p>
       </div>
     </div>
 
-    <!-- TAB 2: THINGS I LOVE ABOUT HER -->
+    <!-- TAB 2: QUALITIES -->
     <div id="sec-qualities" class="tab-content hidden space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-rose-500"></i> Qualities I Love About Her</h2>
-        <button onclick="addQualityPrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium">+ Add New</button>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-white"></i> Things I Love About Her
+        </h2>
+        <button onclick="addQualityPrompt()" class="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-zinc-200 transition">+ Add New</button>
       </div>
-      <div id="qualities-container" class="grid grid-cols-1 gap-2.5">
-        <!-- JS rendered -->
+      <div id="qualities-container" class="space-y-2">
+        <!-- JS Rendered -->
       </div>
     </div>
 
     <!-- TAB 3: DATE IDEAS -->
     <div id="sec-dates" class="tab-content hidden space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="map-pin" class="w-5 h-5 text-rose-500"></i> Date Ideas & Spots</h2>
-        <button onclick="addDatePrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium">+ Add Spot</button>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+          <i data-lucide="map-pin" class="w-4 h-4 text-white"></i> Date Ideas & Spots
+        </h2>
+        <button onclick="addDatePrompt()" class="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-zinc-200 transition">+ Add Spot</button>
       </div>
 
-      <!-- Category Filter -->
-      <div class="flex gap-1 overflow-x-auto text-xs pb-1">
-        <button onclick="filterDates('all')" class="px-3 py-1 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-200">All</button>
-        <button onclick="filterDates('chill')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Chill</button>
-        <button onclick="filterDates('active')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Active</button>
-        <button onclick="filterDates('outdoors')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Outdoors/Nature</button>
-        <button onclick="filterDates('cr')" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">When in CR</button>
+      <!-- Filters -->
+      <div class="flex gap-1.5 overflow-x-auto text-[11px] font-semibold no-scrollbar">
+        <button onclick="filterDates('all')" class="px-3 py-1 rounded-lg bg-white text-black">All</button>
+        <button onclick="filterDates('chill')" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 border border-zinc-800">Chill</button>
+        <button onclick="filterDates('active')" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 border border-zinc-800">Active</button>
+        <button onclick="filterDates('outdoors')" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 border border-zinc-800">Outdoors</button>
+        <button onclick="filterDates('cr')" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 border border-zinc-800">When in CR</button>
       </div>
 
       <div id="dates-container" class="space-y-2">
-        <!-- JS rendered -->
+        <!-- JS Rendered -->
       </div>
     </div>
 
-    <!-- TAB 4: PRINCIPLES & BOUNDARIES -->
+    <!-- TAB 4: BOUNDARIES & PRINCIPLES -->
     <div id="sec-boundaries" class="tab-content hidden space-y-4">
-      <div class="bg-amber-50 dark:bg-amber-950/40 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50">
-        <h3 class="font-bold text-amber-900 dark:text-amber-300 text-sm flex items-center gap-2">
-          <i data-lucide="shield" class="w-4 h-4"></i> High Calling
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+        <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+          <i data-lucide="shield" class="w-4 h-4 text-white"></i> High Calling
         </h3>
-        <p class="text-xs text-amber-800 dark:text-amber-300/80 mt-1 italic">
+        <p class="text-xs text-zinc-400 mt-1.5 italic leading-relaxed">
           "How holy can I make this? How can I make this relationship glorify God? She is God's girl, not mine."
         </p>
       </div>
 
       <div class="space-y-3">
-        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200">Personal Mindset & Reminders</h3>
-        <div id="mindset-list" class="space-y-2 text-sm">
-          <!-- JS Rendered -->
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-xs uppercase tracking-wider text-zinc-400">Personal Mindset</h3>
+          <button onclick="addMindsetPrompt()" class="text-[11px] text-zinc-300 bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800">+ Add</button>
         </div>
+        <div id="mindset-list" class="space-y-2 text-xs"></div>
       </div>
 
       <div class="space-y-3 pt-2">
-        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200">Relationship Boundaries</h3>
-        <div id="boundaries-list" class="space-y-2 text-sm">
-          <!-- JS Rendered -->
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-xs uppercase tracking-wider text-zinc-400">Relationship Rules</h3>
+          <button onclick="addBoundaryPrompt()" class="text-[11px] text-zinc-300 bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800">+ Add</button>
         </div>
+        <div id="boundaries-list" class="space-y-2 text-xs"></div>
       </div>
     </div>
 
-    <!-- TAB 5: QUESTIONS & PREP -->
+    <!-- TAB 5: QUESTIONS -->
     <div id="sec-questions" class="tab-content hidden space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="message-circle" class="w-5 h-5 text-rose-500"></i> Questions & Marriage Prep</h2>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+          <i data-lucide="message-square" class="w-4 h-4 text-white"></i> Questions & Marriage Prep
+        </h2>
+        <button onclick="addQuestionPrompt()" class="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-zinc-200 transition">+ Add Question</button>
       </div>
 
       <div class="space-y-3">
-        <h3 class="font-semibold text-sm text-slate-700 dark:text-slate-300">Casual & Sweet Questions</h3>
+        <h3 class="font-bold text-xs uppercase tracking-wider text-zinc-400">Casual Questions</h3>
         <div id="casual-q-list" class="space-y-2"></div>
       </div>
 
       <div class="space-y-3 pt-2">
-        <h3 class="font-semibold text-sm text-slate-700 dark:text-slate-300">Deep & Marriage Conversations</h3>
+        <h3 class="font-bold text-xs uppercase tracking-wider text-zinc-400">Deep & Marriage Conversations</h3>
         <div id="deep-q-list" class="space-y-2"></div>
       </div>
     </div>
 
-    <!-- TAB 6: JOURNAL & LOG -->
+    <!-- TAB 6: JOURNAL -->
     <div id="sec-journal" class="tab-content hidden space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="book-open" class="w-5 h-5 text-rose-500"></i> Journal & Moments Log</h2>
-        <button onclick="addJournalPrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium">+ Add Entry</button>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+          <i data-lucide="book-open" class="w-4 h-4 text-white"></i> Journal & Log
+        </h2>
+        <button onclick="addJournalPrompt()" class="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-zinc-200 transition">+ Add Entry</button>
       </div>
 
-      <div id="journal-container" class="space-y-3">
-        <!-- JS Rendered -->
-      </div>
+      <div id="journal-container" class="space-y-3"></div>
     </div>
 
-    <!-- TAB 7: GIFTS & NOTES -->
+    <!-- TAB 7: GIFTS -->
     <div id="sec-gifts" class="tab-content hidden space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold flex items-center gap-2"><i data-lucide="gift" class="w-5 h-5 text-rose-500"></i> Gift Ideas</h2>
-        <button onclick="addGiftPrompt()" class="text-xs bg-rose-600 text-white px-3 py-1.5 rounded-lg font-medium">+ Add Gift</button>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+          <i data-lucide="gift" class="w-4 h-4 text-white"></i> Gift Ideas
+        </h2>
+        <button onclick="addGiftPrompt()" class="text-xs bg-white text-black px-3 py-1.5 rounded-lg font-bold hover:bg-zinc-200 transition">+ Add Gift</button>
       </div>
 
-      <div id="gifts-container" class="grid grid-cols-1 gap-2">
-        <!-- JS Rendered -->
-      </div>
+      <div id="gifts-container" class="space-y-2"></div>
     </div>
 
   </main>
 
-  <!-- DATA BACKUP / EXPORT MODAL -->
-  <div id="backupModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-sm w-full p-5 space-y-4">
-      <h3 class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
-        <i data-lucide="database" class="w-5 h-5 text-rose-500"></i> Vault Data & Backup
+  <!-- DATA BACKUP MODAL -->
+  <div id="backupModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
+      <h3 class="font-bold text-base text-white flex items-center gap-2">
+        <i data-lucide="database" class="w-4 h-4 text-white"></i> Backup & Data
       </h3>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        All your notes are saved locally in your phone browser. You can back them up or restore them anytime.
+      <p class="text-xs text-zinc-400 leading-relaxed">
+        Your edits and drag-and-drop order are automatically saved on your device. Export a backup anytime to keep it safe.
       </p>
       <div class="space-y-2">
-        <button onclick="exportData()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-xl text-sm flex items-center justify-center gap-2">
-          <i data-lucide="download" class="w-4 h-4"></i> Export Data Backup (.json)
+        <button onclick="exportData()" class="w-full py-2.5 bg-white text-black font-bold rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-zinc-200 transition">
+          <i data-lucide="download" class="w-4 h-4"></i> Export Backup (.json)
         </button>
-        <button onclick="resetToDefaults()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-medium rounded-xl text-sm flex items-center justify-center gap-2">
-          <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset to Initial Notes
+        <button onclick="resetToDefaults()" class="w-full py-2.5 bg-zinc-800 text-zinc-300 font-medium rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-zinc-700 transition">
+          <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset to Default Notes
         </button>
       </div>
-      <button onclick="closeBackupModal()" class="w-full py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-500 dark:text-slate-400">Close</button>
+      <button onclick="closeBackupModal()" class="w-full py-2 border border-zinc-800 rounded-xl text-xs text-zinc-400 hover:text-white transition">Close</button>
     </div>
   </div>
 
-  <!-- APPLICATION JAVASCRIPT -->
+  <!-- APPLICATION LOGIC -->
   <script>
-    // INITIAL APP DATA (PRE-LOADED WITH ALL YOUR NOTES)
     const initialData = {
       favorites: [
         { cat: "Food", item: "Jersey Mike's" },
@@ -312,7 +323,7 @@
         "Amazing at connecting with all kinds of people",
         "Her beautiful smile & laugh",
         "Able to balance a lot of things at once",
-        "Genuine love and care for her friends (tells them what they need to hear with grace)",
+        "Genuine love and care for her friends",
         "Hard worker and deeply driven",
         "Willingness to serve (church, kids, etc.)",
         "Attention to detail and super organized",
@@ -332,7 +343,7 @@
         { title: "DoorDash & Puzzle / Board Games", cat: "chill", desc: "Cozy night in" },
         { title: "Pickleball & Bowling", cat: "active", desc: "Active & competitive" },
         { title: "Get Air & Ice Skating / Rollerblading", cat: "active", desc: "High energy" },
-        { title: "Walk in Cedar Rapids (Palisades, Mount Trashmore, Morgan Creek)", cat: "cr", desc: "When hanging out in CR" },
+        { title: "Walk in Cedar Rapids (Palisades, Mount Trashmore)", cat: "cr", desc: "When hanging out in CR" },
         { title: "Plato's Closet & Thrifting", cat: "cr", desc: "Shopping day" }
       ],
       mindset: [
@@ -349,8 +360,8 @@
         "Done hanging out at 12:30 AM when it's just the two of us",
         "Set a timer for 12:00 AM during movies to check in with ourselves",
         "Ask: 'Is this sweet, or is this sexual?'",
-        "Kissing rule: Goal is to express affection/fun, NOT to lead further. Stop immediately if wanting more.",
-        "No grabbing, no taking clothes off, no neck kissing (prevents hickeys & guilt)",
+        "Kissing rule: Goal is affection/fun, NOT to lead further.",
+        "No grabbing, no taking clothes off, no neck kissing",
         "Pray before making out & take breaks",
         "She trusts me completely with her purity — lead well!",
         "Re-evaluate and go over boundaries together EVERY MONTH"
@@ -385,28 +396,25 @@
       ]
     };
 
-    // LOAD DATA FROM LOCALSTORAGE OR USE INITIAL
-    let appData = JSON.parse(localStorage.getItem('gf_vault_data')) || initialData;
+    let appData = JSON.parse(localStorage.getItem('gf_vault_black_data')) || initialData;
 
     function saveData() {
-      localStorage.setItem('gf_vault_data', JSON.stringify(appData));
+      localStorage.setItem('gf_vault_black_data', JSON.stringify(appData));
     }
 
-    // TAB SWITCHING LOGIC
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(el => {
-        el.classList.remove('bg-rose-600', 'text-white');
-        el.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+        el.classList.remove('bg-white', 'text-black');
+        el.classList.add('bg-zinc-900', 'text-zinc-400');
       });
 
       document.getElementById(`sec-${tabId}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`tab-${tabId}`);
-      activeBtn.classList.add('bg-rose-600', 'text-white');
-      activeBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+      activeBtn.classList.add('bg-white', 'text-black');
+      activeBtn.classList.remove('bg-zinc-900', 'text-zinc-400');
     }
 
-    // RENDER FUNCTIONS
     function renderAll() {
       renderFavorites();
       renderQualities();
@@ -415,25 +423,41 @@
       renderQuestions();
       renderJournal();
       renderGifts();
+      initSortable();
       lucide.createIcons();
     }
 
+    // RENDERERS WITH EDIT / DELETE CONTROLS
     function renderFavorites() {
       const container = document.getElementById('favorites-list');
-      container.innerHTML = appData.favorites.map(f => `
-        <li class="pt-2">
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300 mr-2">${f.cat}</span>
-          <span class="text-slate-700 dark:text-slate-300">${f.item}</span>
+      container.innerHTML = appData.favorites.map((f, i) => `
+        <li data-id="${i}" class="p-2.5 rounded-lg bg-zinc-900 border border-zinc-800/80 flex items-center justify-between gap-2 group">
+          <div class="flex items-center gap-2 flex-1 overflow-hidden">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700 shrink-0">${f.cat}</span>
+            <span class="text-zinc-200 truncate">${f.item}</span>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="editFavorite(${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('favorites', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </li>
       `).join('');
     }
 
     function renderQualities() {
       const container = document.getElementById('qualities-container');
-      container.innerHTML = appData.qualities.map((q, idx) => `
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm flex items-start gap-3">
-          <i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-rose-500 mt-0.5 shrink-0"></i>
-          <p class="text-sm text-slate-800 dark:text-slate-200 flex-1">${q}</p>
+      container.innerHTML = appData.qualities.map((q, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+            <i data-lucide="heart" class="w-3.5 h-3.5 text-white shrink-0"></i>
+            <p class="text-xs text-zinc-200">${q}</p>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button onclick="editSimpleList('qualities', ${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('qualities', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
     }
@@ -441,10 +465,19 @@
     function renderDates(filter) {
       const container = document.getElementById('dates-container');
       const filtered = filter === 'all' ? appData.dates : appData.dates.filter(d => d.cat === filter);
-      container.innerHTML = filtered.map(d => `
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700/60 shadow-sm">
-          <div class="font-semibold text-sm text-slate-800 dark:text-slate-100">${d.title}</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${d.desc}</div>
+      container.innerHTML = filtered.map((d, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex items-center justify-between gap-3">
+          <div class="flex items-start gap-2.5 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm mt-0.5">⋮⋮</span>
+            <div>
+              <div class="font-bold text-xs text-zinc-100">${d.title}</div>
+              <div class="text-[11px] text-zinc-400 mt-0.5">${d.desc}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button onclick="editDate(${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('dates', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
     }
@@ -455,100 +488,214 @@
     }
 
     function renderBoundaries() {
-      const mindsetBox = document.getElementById('mindset-list');
-      mindsetBox.innerHTML = appData.mindset.map(m => `
-        <div class="bg-white dark:bg-slate-800 p-2.5 rounded-lg border border-slate-100 dark:border-slate-700/60 flex items-center gap-2">
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0"></i>
-          <span>${m}</span>
+      document.getElementById('mindset-list').innerHTML = appData.mindset.map((m, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-2.5 rounded-lg border border-zinc-800 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+            <span>${m}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editSimpleList('mindset', ${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('mindset', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
 
-      const boundaryBox = document.getElementById('boundaries-list');
-      boundaryBox.innerHTML = appData.boundaries.map(b => `
-        <div class="bg-white dark:bg-slate-800 p-2.5 rounded-lg border border-rose-100 dark:border-slate-700/60 flex items-center gap-2">
-          <i data-lucide="lock" class="w-4 h-4 text-rose-500 shrink-0"></i>
-          <span>${b}</span>
+      document.getElementById('boundaries-list').innerHTML = appData.boundaries.map((b, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-2.5 rounded-lg border border-zinc-800 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+            <span>${b}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editSimpleList('boundaries', ${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('boundaries', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
     }
 
     function renderQuestions() {
-      document.getElementById('casual-q-list').innerHTML = appData.casualQ.map(q => `
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700/60 text-sm text-slate-700 dark:text-slate-200">
-          "${q}"
+      document.getElementById('casual-q-list').innerHTML = appData.casualQ.map((q, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex items-center justify-between gap-2 text-xs text-zinc-200">
+          <div class="flex items-center gap-2 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+            <span>"${q}"</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editSimpleList('casualQ', ${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('casualQ', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
 
-      document.getElementById('deep-q-list').innerHTML = appData.deepQ.map(q => `
-        <div class="bg-amber-50/50 dark:bg-slate-800 p-3 rounded-xl border border-amber-200/60 dark:border-slate-700 text-sm text-slate-800 dark:text-slate-200">
-          👉 ${q}
+      document.getElementById('deep-q-list').innerHTML = appData.deepQ.map((q, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex items-center justify-between gap-2 text-xs text-zinc-200">
+          <div class="flex items-start gap-2 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm mt-0.5">⋮⋮</span>
+            <span>👉 ${q}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editSimpleList('deepQ', ${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('deepQ', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
     }
 
     function renderJournal() {
-      const container = document.getElementById('journal-container');
-      container.innerHTML = appData.journal.map(j => `
-        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-rose-100 dark:border-slate-700/60 shadow-sm space-y-1">
-          <span class="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">${j.date}</span>
-          <p class="text-sm text-slate-700 dark:text-slate-300">${j.note}</p>
+      document.getElementById('journal-container').innerHTML = appData.journal.map((j, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-2">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+              <span class="text-[10px] font-bold text-white uppercase tracking-wider">${j.date}</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button onclick="editJournal(${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+              <button onclick="deleteItem('journal', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-300 leading-relaxed">${j.note}</p>
         </div>
       `).join('');
     }
 
     function renderGifts() {
-      const container = document.getElementById('gifts-container');
-      container.innerHTML = appData.gifts.map(g => `
-        <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
-          <i data-lucide="gift" class="w-4 h-4 text-rose-500 shrink-0"></i>
-          <span class="text-sm font-medium text-slate-800 dark:text-slate-200">${g}</span>
+      document.getElementById('gifts-container').innerHTML = appData.gifts.map((g, i) => `
+        <div data-id="${i}" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5 flex-1">
+            <span class="handle cursor-grab text-zinc-600 hover:text-zinc-300 text-sm">⋮⋮</span>
+            <i data-lucide="gift" class="w-3.5 h-3.5 text-white shrink-0"></i>
+            <span class="text-xs font-medium text-zinc-200">${g}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editSimpleList('gifts', ${i})" class="text-zinc-500 hover:text-zinc-200 p-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+            <button onclick="deleteItem('gifts', ${i})" class="text-zinc-500 hover:text-red-400 p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
         </div>
       `).join('');
     }
 
-    // ADD PROMPTS
-    function addQualityPrompt() {
-      const text = prompt("Enter something you love about her:");
-      if (text) {
-        appData.qualities.unshift(text);
+    // DRAG AND DROP INITIALIZATION
+    function initSortable() {
+      const lists = [
+        { id: 'favorites-list', key: 'favorites' },
+        { id: 'qualities-container', key: 'qualities' },
+        { id: 'dates-container', key: 'dates' },
+        { id: 'mindset-list', key: 'mindset' },
+        { id: 'boundaries-list', key: 'boundaries' },
+        { id: 'casual-q-list', key: 'casualQ' },
+        { id: 'deep-q-list', key: 'deepQ' },
+        { id: 'journal-container', key: 'journal' },
+        { id: 'gifts-container', key: 'gifts' }
+      ];
+
+      lists.forEach(l => {
+        const el = document.getElementById(l.id);
+        if (el) {
+          Sortable.create(el, {
+            handle: '.handle',
+            animation: 150,
+            onEnd: function() {
+              const newOrder = [];
+              el.querySelectorAll('[data-id]').forEach(item => {
+                const idx = parseInt(item.getAttribute('data-id'));
+                newOrder.push(appData[l.key][idx]);
+              });
+              appData[l.key] = newOrder;
+              saveData();
+              renderAll();
+            }
+          });
+        }
+      });
+    }
+
+    // ADD / EDIT / DELETE ACTIONS
+    function deleteItem(key, index) {
+      if (confirm("Delete this item?")) {
+        appData[key].splice(index, 1);
         saveData();
-        renderQualities();
-        lucide.createIcons();
+        renderAll();
       }
+    }
+
+    function editSimpleList(key, index) {
+      const current = appData[key][index];
+      const updated = prompt("Edit item:", current);
+      if (updated && updated.trim() !== "") {
+        appData[key][index] = updated.trim();
+        saveData();
+        renderAll();
+      }
+    }
+
+    function addQualityPrompt() {
+      const val = prompt("Things I love about her:");
+      if (val) { appData.qualities.unshift(val); saveData(); renderAll(); }
+    }
+
+    function addFavoritePrompt() {
+      const cat = prompt("Category (Food, Drinks, Candy, etc.):", "Food");
+      const item = prompt("Item detail:");
+      if (cat && item) { appData.favorites.unshift({ cat, item }); saveData(); renderAll(); }
+    }
+
+    function editFavorite(i) {
+      const item = appData.favorites[i];
+      const cat = prompt("Edit Category:", item.cat);
+      const val = prompt("Edit Item:", item.item);
+      if (cat && val) { appData.favorites[i] = { cat, item: val }; saveData(); renderAll(); }
     }
 
     function addDatePrompt() {
-      const title = prompt("Enter Date Spot/Idea:");
-      if (title) {
-        const desc = prompt("Short description or note:") || "";
-        appData.dates.unshift({ title, cat: 'chill', desc });
-        saveData();
-        renderDates('all');
-        lucide.createIcons();
-      }
+      const title = prompt("Date Spot / Idea:");
+      const desc = prompt("Short description:") || "";
+      if (title) { appData.dates.unshift({ title, cat: 'chill', desc }); saveData(); renderAll(); }
+    }
+
+    function editDate(i) {
+      const d = appData.dates[i];
+      const title = prompt("Edit Title:", d.title);
+      const desc = prompt("Edit Description:", d.desc);
+      if (title) { appData.dates[i] = { ...d, title, desc }; saveData(); renderAll(); }
+    }
+
+    function addMindsetPrompt() {
+      const val = prompt("Add personal reminder:");
+      if (val) { appData.mindset.unshift(val); saveData(); renderAll(); }
+    }
+
+    function addBoundaryPrompt() {
+      const val = prompt("Add relationship rule:");
+      if (val) { appData.boundaries.unshift(val); saveData(); renderAll(); }
+    }
+
+    function addQuestionPrompt() {
+      const q = prompt("Enter question:");
+      if (q) { appData.casualQ.unshift(q); saveData(); renderAll(); }
     }
 
     function addJournalPrompt() {
-      const date = prompt("Enter Date (e.g. Oct 10, 2026):", "Oct 8, 2026");
-      const note = prompt("Journal Note:");
-      if (note) {
-        appData.journal.unshift({ date, note });
-        saveData();
-        renderJournal();
-      }
+      const date = prompt("Date (e.g. Oct 8, 2026):", "Oct 8, 2026");
+      const note = prompt("Journal note:");
+      if (note) { appData.journal.unshift({ date, note }); saveData(); renderAll(); }
+    }
+
+    function editJournal(i) {
+      const j = appData.journal[i];
+      const date = prompt("Edit Date:", j.date);
+      const note = prompt("Edit Note:", j.note);
+      if (date && note) { appData.journal[i] = { date, note }; saveData(); renderAll(); }
     }
 
     function addGiftPrompt() {
-      const gift = prompt("Gift Idea:");
-      if (gift) {
-        appData.gifts.unshift(gift);
-        saveData();
-        renderGifts();
-        lucide.createIcons();
-      }
+      const g = prompt("Gift idea:");
+      if (g) { appData.gifts.unshift(g); saveData(); renderAll(); }
     }
 
-    // BACKUP & RESET
+    // MODAL & BACKUP
     function openBackupModal() { document.getElementById('backupModal').classList.remove('hidden'); }
     function closeBackupModal() { document.getElementById('backupModal').classList.add('hidden'); }
 
@@ -556,14 +703,14 @@
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `girlfriend_vault_backup.json`);
+      downloadAnchor.setAttribute("download", `girlfriend_vault_black_backup.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
     }
 
     function resetToDefaults() {
-      if (confirm("Reset back to initial notes data?")) {
+      if (confirm("Reset back to default notes? All current edits will be replaced.")) {
         appData = initialData;
         saveData();
         renderAll();
@@ -571,12 +718,6 @@
       }
     }
 
-    // DARK MODE TOGGLE
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-    }
-
-    // INIT ON LOAD
     window.onload = () => {
       renderAll();
     };
